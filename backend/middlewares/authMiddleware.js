@@ -1,6 +1,6 @@
 import * as tkRepository from '../repositories/taiKhoanRepository.js'; 
 
-export const protectedRoute = asyncHandler(async (req, res, next) => {
+export const protectedRoute = async (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
@@ -26,4 +26,4 @@ export const protectedRoute = asyncHandler(async (req, res, next) => {
   req.user = user;
 
   next();
-});
+};
