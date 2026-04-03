@@ -7,7 +7,7 @@ CREATE TABLE tt_sinhvien (
   id INT AUTO_INCREMENT PRIMARY KEY,
   hoten VARCHAR(512) NOT NULL,
   mssv VARCHAR(10) NOT NULL UNIQUE,
-  lop VARCHAR(10) NOT NULL,
+  lop VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE tai_khoan (
@@ -15,6 +15,7 @@ CREATE TABLE tai_khoan (
   username VARCHAR(255) UNIQUE,
   mssv VARCHAR(10) UNIQUE,
   hashed_password VARCHAR(255) NOT NULL,
+  role VARCHAR(10) NOT NULL DEFAULT 'SV',
   CONSTRAINT tai_khoan_mssv_tt_sinhvien_mssv FOREIGN KEY (mssv) REFERENCES tt_sinhvien(mssv)
 );
 
