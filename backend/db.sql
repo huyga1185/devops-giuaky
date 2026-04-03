@@ -8,7 +8,6 @@ CREATE TABLE tt_sinhvien (
   hoten VARCHAR(512) NOT NULL,
   mssv VARCHAR(10) NOT NULL UNIQUE,
   lop VARCHAR(10) NOT NULL,
-  role VARCHAR(10) NOT NULL DEFAULT 'SV'
 );
 
 CREATE TABLE tai_khoan (
