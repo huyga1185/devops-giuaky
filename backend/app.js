@@ -4,6 +4,7 @@ import cors from 'cors';
 import { connectDB } from './config/db.js';
 import sinhVienRoute from './routes/sinhVienRoute.js';
 import authRoute from './routes/authRoute.js';
+import { createAdmin } from './services/taiKhoanService.js';
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ app.use(express.json());
 
 app.use('/api/sv', sinhVienRoute);
 app.use('/api/auth', authRoute);
+
+await createAdmin();
 
 const startServer = async () => {
   try {
