@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const ACCESS_TOKEN_TTL = "7d";
+const ACCESS_TOKEN_TTL = "15m";
 
 const REFRESH_TOKEN_TTL = 14 * 24 * 60 * 60 * 1000;
 
@@ -21,13 +21,13 @@ export const logIn = async(taiKhoan) => {
     throw new Error("TK not found!");
   }
 
-  const isMatch = await bcrypt.compare(password, tk.hashed_password);
+  const isPwdCorrect = await bcrypt.compare(password, tk.hashed_password);
 
-  if (isMatch) {
+  if (isPwdCorrect) {
     const accessToken = jwt.sign({tkId:tk.id, role:tk.role}, process.env.JWT_SECRET_KEY, {expiresIn: ACCESS_TOKEN_TTL});
     const refreshToken = crypto.randomBytes(64).toString('hex');
     
-    await phienRepo.create({refreshToken, tk.id});
+    await phienRepo.create({phienKey:refreshToken, tkId:tk.id});
 
     return { accessToken, REFRESH_TOKEN_TTL, refreshToken};
   } else {
@@ -56,7 +56,7 @@ export const refreshToken = async (token) => {
   const newRefreshToken = crypto.randomBytes(64).toString("hex");
 
   
-  await phienRepo.create({refreshToken, tk.id});
+  await phienRepo.create({phienKey:refreshToken, tkId:tk.id});
 
   await phienRepo.deleteToken(token);
 

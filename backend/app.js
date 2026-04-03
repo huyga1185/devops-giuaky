@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { connectDB } from './config/db.js';
 import sinhVienRoute from './routes/sinhVienRoute.js';
+import authRoute from './routes/authRoute.js';
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/sv', sinhVienRoute);
+app.use('/api/auth', authRoute);
 
 const startServer = async () => {
   try {
