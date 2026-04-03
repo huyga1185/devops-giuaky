@@ -13,7 +13,7 @@ CREATE TABLE tt_sinhvien (
 
 CREATE TABLE tai_khoan (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  mssv VARCHAR(10) NOT NULL UNIQUE,
+  mssv VARCHAR(10) UNIQUE,
   hashed_password VARCHAR(255) NOT NULL,
   CONSTRAINT tai_khoan_mssv_tt_sinhvien_mssv FOREIGN KEY (mssv) REFERENCES tt_sinhvien(mssv)
 );
