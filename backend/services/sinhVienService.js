@@ -7,4 +7,16 @@ export const getAbout = async (user) => {
     throw new Error("TK not found");
   }
   return tk;
-}
+};
+
+export const createSinhVien = async (sinhVien) => {
+  const { hoTen, mssv, lop } = sinhVien;
+
+  const sv = await svRepo.getSinhVienByMSSV(mssv);
+
+  if (!sv) {
+    await svRepo.createSinhVien(sinhVien);
+  } else {
+    throw new Error("SV existed");
+  }
+};
