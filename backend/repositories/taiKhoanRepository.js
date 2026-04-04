@@ -8,6 +8,14 @@ export const createTaiKhoan = async (taiKhoan) => {
   await pool.execute(sql, [mssv, hashedPassword]);
 };
 
+export const createTaiKhoanWithAdminRole = async (taiKhoan) => {
+  const { username, hashedPassword } = taiKhoan;
+
+  const sql = "INSERT INTO tai_khoan(username, hashed_password, role) VALUES (?, ?, ?);";
+
+  await pool.execute(sql, [username, hashedPassword, 'ADMIN']);
+};
+
 export const getTKByMSSV = async (mssv) => {
   const sql = "SELECT * FROM tai_khoan WHERE mssv = ?;";
   const [row] = await pool.execute(sql, [mssv]);
@@ -17,6 +25,13 @@ export const getTKByMSSV = async (mssv) => {
 export const getTKById = async (id) => {
   const sql = "SELECT * FROM tai_khoan WHERE id = ?;";
 
-  const [row] = pool.execute(sql, [id]);
+  const [row] = await pool.execute(sql, [id]);
+  return row[0];
+};
+
+export const getTKByUsername = async (username) => {
+  const sql = "SELECT * FROM tai_khoan WHERE username = ?;";
+
+  const [row] = await pool.execute(sql, [username]);
   return row[0];
 };
