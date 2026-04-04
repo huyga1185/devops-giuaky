@@ -35,6 +35,30 @@ export const logIn = async(taiKhoan) => {
   }
 };
 
+
+export const adminLogIn = async(taiKhoan) => {
+  const { username, password } = taiKhoan;
+  
+  const tk = await tkRepo.getTKByUsername(mssv);
+
+  if (!tk) {
+    throw new Error("TK not found!");
+  }
+
+  const isPwdCorrect = await bcrypt.compare(password, tk.hashed_password);
+
+  if (isPwdCorrect) {
+    const accessToken = jwt.sign({tkId:tk.id, role:tk.role}, process.env.JWT_SECRET_KEY, {expiresIn: ACCESS_TOKEN_TTL});
+    const refreshToken = crypto.randomBytes(64).toString('hex');
+    
+    await phienRepo.create({phienKey:refreshToken, tkId:tk.id});
+
+    return { accessToken, REFRESH_TOKEN_TTL, refreshToken};
+  } else {
+    throw new Error("Username or password is not correct!");
+  }
+};
+
 export const refreshToken = async (token) => {
   const session = phienRepo.getPhienByToken(token);
 
