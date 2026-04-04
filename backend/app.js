@@ -5,6 +5,7 @@ import { connectDB } from './config/db.js';
 import sinhVienRoute from './routes/sinhVienRoute.js';
 import authRoute from './routes/authRoute.js';
 import { createAdmin } from './services/taiKhoanService.js';
+import taiKhoanRoute from './routes/taiKhoanRoute.js';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 app.use('/api/sv', sinhVienRoute);
 app.use('/api/auth', authRoute);
+app.use('/api/tk', taiKhoanRoute);
 
 await createAdmin();
 
