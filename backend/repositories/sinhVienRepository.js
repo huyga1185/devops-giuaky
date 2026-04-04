@@ -9,7 +9,8 @@ export const getSinhVienByMssv = async (mssv) => {
 export const createSinhVien = async (sinhVien) => {
   const { hoTen, mssv, lop } = sinhVien;
   const sql = "INSERT INTO sinh_vien(hoten, mssv, lop) VALUES(?, ?, ?);";
-  await pool.execute(sql, [hoTen, mssv, lop]);
+  const [row] = await pool.execute(sql, [hoTen, mssv, lop]);
+  return row.insertId;
 };
 
 export const getSinhVienByTKId = async (tkId) => {

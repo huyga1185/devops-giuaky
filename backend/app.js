@@ -5,7 +5,6 @@ import { connectDB } from './config/db.js';
 import sinhVienRoute from './routes/sinhVienRoute.js';
 import authRoute from './routes/authRoute.js';
 import { createAdmin } from './services/taiKhoanService.js';
->>>>>>> develop
 
 dotenv.config();
 

@@ -15,7 +15,8 @@ export const createSinhVien = async (sinhVien) => {
   const sv = await svRepo.getSinhVienByMSSV(mssv);
 
   if (!sv) {
-    await svRepo.createSinhVien(sinhVien);
+    const id = await svRepo.createSinhVien(sinhVien);
+    return id;
   } else {
     throw new Error("SV existed");
   }
