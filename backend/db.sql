@@ -23,6 +23,6 @@ CREATE TABLE phien (
   id INT AUTO_INCREMENT PRIMARY KEY,
   phien_key VARCHAR(512) NOT NULL UNIQUE,
   tk_id INT NOT NULL,
-  expires_at DATETIME NOT NULL,
+  expires_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT phien_tk_id_tai_khoan_id FOREIGN KEY (tk_id) REFERENCES tai_khoan(id)
 )

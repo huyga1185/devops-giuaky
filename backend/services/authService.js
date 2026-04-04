@@ -3,6 +3,7 @@ import * as phienRepo from '../repositories/phienReposioty.js';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
@@ -39,7 +40,7 @@ export const logIn = async(taiKhoan) => {
 export const adminLogIn = async(taiKhoan) => {
   const { username, password } = taiKhoan;
   
-  const tk = await tkRepo.getTKByUsername(mssv);
+  const tk = await tkRepo.getTKByUsername(username);
 
   if (!tk) {
     throw new Error("TK not found!");
