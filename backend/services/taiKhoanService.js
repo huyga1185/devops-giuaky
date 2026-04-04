@@ -17,3 +17,13 @@ export const createAdmin = async () => {
     await tkRepo.createTaiKhoanWithAdminRole({username, hashedPassword});
   }
 };
+
+export const createTaiKhoan = async (taiKhoan) => {
+  const { mssv, password } = taiKhoan;
+  const tk = await tkRepo.getTKByMSSV(mssv);
+
+  if (!tk) {
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    await tkRepo.createTaiKhoan({ mssv, hashedPassword });
+  }
+};

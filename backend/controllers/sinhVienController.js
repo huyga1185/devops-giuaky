@@ -9,3 +9,19 @@ export const getAbout = async (req, res) => {
     return res.status(400).json({status:err.message});
   }
 };
+
+export const createSinhVien = async (req, res) => {
+  const sinhVien = req.body;
+  
+  if (!sinhVien.hoTen || !sinhVien.mssv || !sinhVien.lop) {
+    return res.status(400).json({message:"Bad request"});
+  }
+
+  try {
+    const id = await svService.createSinhVien(sinhVien);
+    return id;
+  } catch(err) {
+    console.log(err);
+    return res.status(400).json({message:err.message});
+  }
+};
