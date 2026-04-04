@@ -12,3 +12,8 @@ export const createSinhVien = async (sinhVien) => {
   await pool.execute(sql, [hoTen, mssv, lop]);
 };
 
+export const getSinhVienByTKId = async (tkId) => {
+  const sql = "SELECT sv.id, sv.hoten, sv.mssv, sv.lop from sinh_vien AS sv JOIN tai_khoan AS tk ON sv.mssv = tk.mssv WHERE tk.id = ?;";
+  const [row] = await pool.execute(sql, [tkId]);
+  return row[0];
+}
