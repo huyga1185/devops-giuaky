@@ -6,5 +6,5 @@ import { router } from './routers/route.js';
 $(document).ready(() => {
   router();
 
-  $(window).on('hashchange', router);
+  $(window).on('popstate', router);
 });

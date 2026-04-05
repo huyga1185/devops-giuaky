@@ -1,17 +1,29 @@
-import { renderLogin } from '../components/authComponent.js';
+import { renderLogin, renderAdminLogin } from '../components/authComponent.js';
 import $ from 'jquery';
 
 const routes = {
   '/login': renderLogin,
+  '/admin-login': renderAdminLogin
 };
 
-export const router = () => {
-  const path = location.hash.slice(1) || '/login'
+export const router = async () => {
+  const path = window.location.pathname;
   const render = routes[path];
+
+  if (path === '/') {
+    return redirect('/login');
+  }
 
   if (render) {
     render();
   } else {
     $('#app').html('<h1>404 PAGE NOT FOUND!</h1>')
   }
+};
+
+window.addEventListener('popstate', router);
+
+export const redirect = (path) => {
+  history.pushState({}, '', path);
+  window.dispatchEvent(new Event('popstate'));
 };

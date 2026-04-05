@@ -92,3 +92,7 @@ export const adminLogIn = async (req, res) => {
     return res.status(400).json({message:err.message})
   };
 };
+
+export const checkToken = async (req, res) => {
+  res.status(204).send();
+};

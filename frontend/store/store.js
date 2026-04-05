@@ -3,7 +3,7 @@ export const jwt = {
   set(jwt) {
     this._jwt = jwt;
   },
-  clear(jwt) {
+  clear() {
     this._jwt = null;
   },
   get() {
