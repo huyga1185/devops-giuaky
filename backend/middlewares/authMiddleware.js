@@ -1,4 +1,8 @@
 import * as tkRepository from '../repositories/taiKhoanRepository.js'; 
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const protectedRoute = async (req, res, next) => {
   const authHeader = req.headers["authorization"];
@@ -13,6 +17,7 @@ export const protectedRoute = async (req, res, next) => {
   try {
     decodedUser = jwt.verify(token, process.env.JWT_SECRET_KEY);
   } catch (err) {
+    console.log(err);
     return res.status(401).json({message:"Access token expired or wrong"});
   }
 

@@ -1,11 +1,13 @@
 import { renderLogin, renderAdminLogin } from '../components/authComponent.js';
 import $ from 'jquery';
 import { renderAbout } from '../components/aboutComponent.js';
+import { renderDashboard } from '../components/dashboardComponent.js';
 
 const routes = {
   '/login': renderLogin,
   '/admin-login': renderAdminLogin,
-  '/about': renderAbout
+  '/about': renderAbout,
+  '/dashboard': renderDashboard
 };
 
 export const router = async () => {

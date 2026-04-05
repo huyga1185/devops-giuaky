@@ -52,6 +52,8 @@ export const adminLogIn = async(taiKhoan) => {
     const accessToken = jwt.sign({tkId:tk.id, role:tk.role}, process.env.JWT_SECRET_KEY, {expiresIn: ACCESS_TOKEN_TTL});
     const refreshToken = crypto.randomBytes(64).toString('hex');
     
+    console.log(`accessToken: ${accessToken}`);
+
     await phienRepo.create({phienKey:refreshToken, tkId:tk.id});
 
     return { accessToken, REFRESH_TOKEN_TTL, refreshToken};
