@@ -14,15 +14,20 @@ const pool = mysql.createPool({
   queueLimit: 0
 });
 
-export const connectDB = async () => {
-  try {
-    const conn = await pool.getConnection();
-    console.log('Database connected');
-    conn.release();
-  } catch (err) {
-    console.error('Database connection failed:', err.message);
-    throw err;
+// config/db.js
+export const connectDB = async (retries = 10, delay = 3000) => {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const conn = await pool.getConnection();
+      console.log('Database connected');
+      conn.release();
+      return;
+    } catch (err) {
+      console.log(`Waiting for DB... (${i + 1}/${retries})`);
+      await new Promise(res => setTimeout(res, delay));
+    }
   }
+  throw new Error('Could not connect to database after max retries');
 };
 
 export default pool;

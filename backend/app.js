@@ -19,11 +19,11 @@ app.use('/api/sv', sinhVienRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/tk', taiKhoanRoute);
 
-await createAdmin();
-
 const startServer = async () => {
   try {
     await connectDB(); 
+
+    await createAdmin();
 
     app.listen(PORT, () => {
       console.log(`Server running on port: ${PORT}`);
