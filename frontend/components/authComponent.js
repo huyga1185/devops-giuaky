@@ -101,7 +101,9 @@ export const renderAdminLogin = async () => {
       const data = await res.json();
 
       if (data.accessToken) {
+        console.log("Admin login successful");
         jwt.set(data.accessToken);
+        console.log(jwt.get());
         return redirect('/dashboard');
       } else {
         alert(data.message);

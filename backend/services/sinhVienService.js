@@ -1,8 +1,8 @@
 import * as svRepo from '../repositories/sinhVienRepository.js';
 
 export const getAbout = async (user) => {
-  const { tkId } = user;
-  const sv = await svRepo.getSinhVienByTKId(tkId);
+  const { id } = user;
+  const sv = await svRepo.getSinhVienByTKId(id);
   if (!sv) {
     throw new Error("SV or TK not found");
   }
@@ -12,7 +12,7 @@ export const getAbout = async (user) => {
 export const createSinhVien = async (sinhVien) => {
   const { hoTen, mssv, lop } = sinhVien;
 
-  const sv = await svRepo.getSinhVienByMSSV(mssv);
+  const sv = await svRepo.getSinhVienByMssv(mssv);
 
   if (!sv) {
     const id = await svRepo.createSinhVien(sinhVien);

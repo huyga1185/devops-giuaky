@@ -52,6 +52,7 @@ export const isTokenValid = async () => {
 
 export const checkRole = async () => {
     const token = jwt.get();
+    console.log(`token: ${token}`);
     if (token == null) {
         throw new Error("Token not found");
     }
@@ -71,4 +72,4 @@ export const fetchWithRefresh = async (url, options) => {
         response = await fetch(url, options); 
     }
     return response;
-}
+};

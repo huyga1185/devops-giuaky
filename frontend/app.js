@@ -5,6 +5,4 @@ import { router } from './routers/route.js';
 
 $(document).ready(() => {
   router();
-
-  $(window).on('popstate', router);
 });
