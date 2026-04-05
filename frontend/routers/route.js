@@ -1,9 +1,11 @@
 import { renderLogin, renderAdminLogin } from '../components/authComponent.js';
 import $ from 'jquery';
+import { renderAbout } from '../components/aboutComponent.js';
 
 const routes = {
   '/login': renderLogin,
-  '/admin-login': renderAdminLogin
+  '/admin-login': renderAdminLogin,
+  '/about': renderAbout
 };
 
 export const router = async () => {

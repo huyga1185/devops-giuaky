@@ -3,7 +3,7 @@ import { jwt } from '../store/store.js';
 import { redirect } from '../routers/route.js';
 import { jwtDecode } from 'jwt-decode';
 
-const SERVER = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+const SERVER = import.meta.env.VITE_SERVER || 'http://localhost:3000';
 
 export const refreshToken = async () => {
     try {
@@ -62,3 +62,13 @@ export const checkRole = async () => {
     const decoded = jwtDecode(token);
     return decoded.role;
 };
+
+export const fetchWithRefresh = async (url, options) => {
+    let response = await fetch(url, options);
+    if (response.status === 401) {
+        await refreshToken(); 
+        options.headers['Authorization'] = `Bearer ${jwt.get()}`; 
+        response = await fetch(url, options); 
+    }
+    return response;
+}
